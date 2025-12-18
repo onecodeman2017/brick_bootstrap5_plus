@@ -10,6 +10,11 @@
 </h2>
 <p align="center">如果喜欢这个包，你可以点个赞 ❤️ <a href="https://github.com/onecodeman2017/brick_bootstrap5_plus">送一颗星星 ⭐</a> 支持一哈!</p>
 
+<p align="center">
+  <strong>📖 其他语言版本：</strong><br>
+  <strong>中文</strong> | <a href="README_EN.md">English</a>
+</p>
+
 <br />
 <br />
 
