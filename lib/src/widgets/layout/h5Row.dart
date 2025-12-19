@@ -5,23 +5,38 @@ class H5Row extends StatefulWidget {
   final String classNames;
 
   ///
+  /// **支持的 classNames**:
+  /// - 栅格: `col-{1-24}`, `offset-{0-*}`, `order-{0-*}`
+  /// - 间距: `p-{1-5}`, `m-{1-5}`, `g-{1-5}`, `p{t,b,s,e,x,y}-*`, `m{t,b,s,e,x,y}-*`
+  /// - 对齐: `align-items-*`, `align-self-*`, `justify-content-*`, `align-*`
+  /// - 尺寸: `w-{0-*}`, `h-{0-*}`, `maxWidth-{0-*}`, `minWidth-{0-*}`, `maxHeight-{0-*}`, `minHeight-{0-*}`
+  /// - 颜色: `bg-*`, `color-*`, `borderColor-*`, `hoverColor-*`, `activeColor-*`
+  /// - 边框: `border-*`, `borderRadius-*`, `borderTop-*`, `borderBottom-*`, `borderLeft-*`, `borderRight-*`
+  /// - 边框圆角: `borderRadiustopLeft-*`, `borderRadiustopRight-*`, `borderRadiusTop-*`, `borderRadiusBottom-*`, `borderRadiusLeft-*`, `borderRadiusRight-*`, `borderRadiusbottomLeft-*`, `borderRadiusbottomRight-*`
+  /// - 阴影: `shadowColor-*`, `shadowBlurRadius-*`, `shadow-offset-*`
+  /// - 显示: `d-none`, `d-block`
+  /// - 透明度: `opacity-*`
+  /// - 圆角: `rounded-{sm,md,lg,xl,full,circle,number}`
+  /// - 文本: `text-truncate`, `text-break`, `line-height-*`, `letter-spacing-*`
+  /// - 响应式: `hidden`, `hidden-{xs,sm,md,lg,xl,xxl}`, `visible`, `visible-{xs,sm,md,lg,xl,xxl}`, `block`, `block-{xs,sm,md,lg,xl,xxl}`
   ///
+  /// **注意**: H5Row 是最广泛支持的布局组件，支持淡停效应事件 (hoverColor, hoverBorder, hoverBorderColor)
   ///
   /// ```dart
   ///   H5Row(
-  ///     classNames: 'align-items-start align-items-center align-items-end ' // 纵向对齐
-  ///     classNames: 'justify-content-start justify-content-around justify-content-between justify-content-evenly justify-content-center justify-content-end' // 横向对齐 (由于最终使用的是Wrap组件，另外横向对齐 只支持左对齐，右对齐，居中对齐)
-  ///     classNames: 'align-self-bottomCenter align-self-bottomLeft align-self-bottomRight align-self-center align-self-centerLeft align-self-centerRight align-self-topCenter align-self-topLeft align-self-topRight ' // 横向对齐
-  ///     classNames: 'align-bottomCenter align-bottomLeft align-bottomRight align-center align-centerLeft align-centerRight align-topCenter align-topLeft align-topRight ' // 横向对齐
-  ///     classNames: 'mt-10 mb-10 bg-black ' // 只支持 bg-  背景色
-  ///     classNames: 'w-150-px h-160-px maxHeight-150-px minHeight-150-px minWidth-150-px maxWidth-150-px' //
-  ///     classNames: 'shadowColor-black12 shadowBlurRadius-2 shadow-offset-1,1' // 阴影
-  ///     classNames: 'borderRadius-4  borderColor-red border-1' // 边框
-  ///     classNames: 'borderRadiustopLeft-1 borderRadiustopRight-1 borderRadiusTop-1 borderRadiusBottom-1 borderRadiusLeft-1 borderRadiusRight1- borderRadiusbottomLeft-1 borderRadiusbottomRight-1' //边框圆角
-  ///     classNames: 'hoverColor-green hoverBorderColor-blue hoverBorder-2 ' //
-  ///     classNames: 'display-none display-block' // 隐藏，显示
-  ///     classNames: 'opacity-0.5' // 透明度
-  ///     children:[],
+  ///     classNames: 'align-items-start align-items-center align-items-end',
+  ///     classNames: 'justify-content-start justify-content-around justify-content-between justify-content-evenly justify-content-center justify-content-end',
+  ///     classNames: 'align-self-bottomCenter align-self-bottomLeft align-self-bottomRight align-self-center align-self-centerLeft align-self-centerRight align-self-topCenter align-self-topLeft align-self-topRight',
+  ///     classNames: 'align-bottomCenter align-bottomLeft align-bottomRight align-center align-centerLeft align-centerRight align-topCenter align-topLeft align-topRight',
+  ///     classNames: 'w-150-px h-160-px maxHeight-150-px minHeight-150-px minWidth-150-px maxWidth-150-px',
+  ///     classNames: 'mt-10 mb-10 bg-black color-white',
+  ///     classNames: 'shadowColor-black shadowBlurRadius-2 shadow-offset-1,1',
+  ///     classNames: 'borderRadius-4 borderColor-red border-1',
+  ///     classNames: 'hoverColor-green hoverBorderColor-blue hoverBorder-2',
+  ///     classNames: 'display-none display-block',
+  ///     classNames: 'opacity-0.5',
+  ///     classNames: 'rounded-lg flex-grow-12 gap-3',
+  ///     children: [...],
   ///   )
   /// ```
   H5Row({

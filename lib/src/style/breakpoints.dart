@@ -657,6 +657,10 @@ class BreakPoints {
   }
 
   /// 宽度 （百分比或px）
+  // 缓存最近计算的宽度值，提高响应式宽度计算性能
+  static final Map<String, double?> _widthCache = {};
+  static const int _maxWidthCacheSize = 200;
+
   double? _currentWidth1(
     double maxWidth,
     BreakPoint breakPoint, {
@@ -669,6 +673,15 @@ class BreakPoints {
     double? xxl,
     String? unit,
   }) {
+    // 构造缓存键
+    final cacheKey =
+        '$maxWidth|${breakPoint.minWidth}|$fromStyle|$xs|$sm|$md|$lg|$xl|$xxl|$unit';
+
+    // 检查缓存
+    if (_widthCache.containsKey(cacheKey)) {
+      return _widthCache[cacheKey];
+    }
+
     double? width;
     if (fromStyle != null) {
       width = unit == 'px' ? fromStyle : maxWidth / 100 * fromStyle;
@@ -692,7 +705,24 @@ class BreakPoints {
       width = unit == 'px' ? xxl : maxWidth / 100 * xxl;
     }
 
+    // 缓存结果
+    _cacheWidthResult(cacheKey, width);
     return width;
+  }
+
+  // 缓存宽度计算结果
+  void _cacheWidthResult(String key, double? value) {
+    // 管理缓存大小
+    if (_widthCache.length >= _maxWidthCacheSize) {
+      _widthCache.remove(_widthCache.keys.first);
+    }
+
+    _widthCache[key] = value;
+  }
+
+  // 清除宽度缓存
+  static void clearWidthCache() {
+    _widthCache.clear();
   }
 
   /// 高度 （百分比或px）

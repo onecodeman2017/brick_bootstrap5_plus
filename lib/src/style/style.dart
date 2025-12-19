@@ -2,16 +2,8 @@ library brick_bootstrap5_plus_style;
 
 // 因为暂时只用到这个
 import 'dart:ui' show ImageFilter;
-
-import 'package:flutter/material.dart';
-import 'package:tinycolor2/tinycolor2.dart';
-
-import '../layout/layout.dart';
-import '../utilities/utilities.dart';
-
-
-
 import 'dart:developer' as d;
+
 import 'package:flutter/material.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 
@@ -45,6 +37,11 @@ part 'scale.dart';
 part 'shadow.dart';
 part 'opacity.dart';
 part 'cache/style_cache.dart';
+part 'cache/optimized_style_calculator.dart';
+part 'flex.dart';
+part 'rounded_presets.dart';
+part 'text_styles_enhanced.dart';
+part 'responsive_display.dart';
 
 abstract class _Sizing {
   double get numerator;

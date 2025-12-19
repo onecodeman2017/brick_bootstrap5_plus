@@ -59,8 +59,18 @@ class ScreenData {
 
   static const double defaultFontSize = 12.0;
 
+  // 缓存最近使用的ScreenData对象，避免重复创建
+  static final Map<double, ScreenData> _screenDataCache = {};
+  static const int _maxCacheSize = 10; // 限制缓存大小
+
   static ScreenData fallBack(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    // 检查缓存中是否有匹配的ScreenData
+    if (_screenDataCache.containsKey(width)) {
+      return _screenDataCache[width]!;
+    }
+
     var breakPoints = const BreakPoints();
     final BreakPoint b;
     if (width > BootstrapBreakPoints.xxl.minWidth) {
@@ -76,7 +86,8 @@ class ScreenData {
     } else {
       b = BootstrapBreakPoints.xs;
     }
-    return ScreenData(
+
+    final screenData = ScreenData(
       breakPoints: breakPoints,
       currentBreakPoint: b,
       screenSize: Size.fromWidth(
@@ -87,6 +98,19 @@ class ScreenData {
       typography: t.Typography(),
       colors: BColors(),
     );
+
+    // 管理缓存大小
+    if (_screenDataCache.length >= _maxCacheSize) {
+      _screenDataCache.remove(_screenDataCache.keys.first);
+    }
+
+    _screenDataCache[width] = screenData;
+    return screenData;
+  }
+
+  // 清除缓存
+  static void clearCache() {
+    _screenDataCache.clear();
   }
 
   ThemeData toTheme({ThemeData? theme}) => (theme ?? ThemeData()).copyWith(

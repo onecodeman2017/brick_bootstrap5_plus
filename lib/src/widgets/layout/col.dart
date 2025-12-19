@@ -46,9 +46,22 @@ class BCol extends _OrderWidget {
   ///
   /// [gutterY]  Y方向子元素间隔
   ///
-  /// 不支持的classNames 'activeColor- hoverColor- hoverBorderColor- hoverBorder- fit- font-size- font-weight-'
+  /// **支持的 classNames**:
+  /// - 栅格: `col-{1-24}`, `offset-{0-*}`, `order-{0-*}`
+  /// - 间距: `p-{1-5}`, `m-{1-5}`, `g-{1-5}`, `p{t,b,s,e,x,y}-*`, `m{t,b,s,e,x,y}-*`
+  /// - 对齐: `align-items-*`, `align-self-*`, `justify-content-*`, `align-*`
+  /// - 尺寸: `h-{0-*}` (不支持 w-, maxWidth-, minWidth- 因为宽度由栅格决定)
+  /// - 颜色: `bg-*`, `color-*`, `borderColor-*`, `hoverColor-*`, `activeColor-*`
+  /// - 边框: `border-*`, `borderRadius-*`, `borderTop-*`, `borderBottom-*`, `borderLeft-*`, `borderRight-*`
+  /// - 阴影: `shadowColor-*`, `shadowBlurRadius-*`, `shadow-offset-*`
+  /// - 显示: `d-none`, `d-block`
+  /// - 透明度: `opacity-*`
+  /// - Flex增强: `flex-grow-{0-24}`, `flex-shrink-{0-24}`, `gap-{0-5}`
+  /// - 圆角: `rounded-{sm,md,lg,xl,full,circle,number}`
+  /// - 文本: `text-truncate`, `text-break`, `line-height-*`, `letter-spacing-*`
+  /// - 响应式: `hidden`, `hidden-{xs,sm,md,lg,xl,xxl}`, `visible`, `visible-{xs,sm,md,lg,xl,xxl}`, `block`, `block-{xs,sm,md,lg,xl,xxl}`
   ///
-  /// 不支持的classNames 'blur- maxHeight- minHeight- minWidth- maxWidth- scale- w-'
+  /// **注意**: 不支持 `w-`, `maxWidth-`, `minWidth-` (宽度由 col-* 决定), `maxHeight-`, `minHeight-`, `font-size-`, `font-weight-`, `blur-`, `scale-`, `fit-`, `stackFit-` 等仅作用于直接容器的属性
   ///
   /// ```dart
   ///   BCol(
@@ -57,13 +70,15 @@ class BCol extends _OrderWidget {
   ///     classNames: 'justify-content-start justify-content-around justify-content-between justify-content-evenly justify-content-center justify-content-end' // 横向对齐 (由于最终使用的是Wrap组件，另外横向对齐 只支持左对齐，右对齐，居中对齐)
   ///     classNames: 'align-self-bottomCenter align-self-bottomLeft align-self-bottomRight align-self-center align-self-centerLeft align-self-centerRight align-self-topCenter align-self-topLeft align-self-topRight ' // 横向对齐
   ///     classNames: 'align-bottomCenter align-bottomLeft align-bottomRight align-center align-centerLeft align-centerRight align-topCenter align-topLeft align-topRight ' // 横向对齐
-  ///     classNames: 'borderRadius-4  borderColor-red border-1' // 边框
-  ///     classNames: 'borderRadiustopLeft-1 borderRadiustopRight-1 borderRadiusTop-1 borderRadiusBottom-1 borderRadiusLeft-1 borderRadiusRight1- borderRadiusbottomLeft-1 borderRadiusbottomRight-1' //边框圆角
-  ///     classNames: 'mt-10 mb-10 h-160-px bg-black ' // 只支持 bg-  背景色
+  ///     classNames: 'borderRadius-4 borderColor-red border-1' // 边框
+  ///     classNames: 'borderRadiustopLeft-1 borderRadiustopRight-1 borderRadiusTop-1 borderRadiusBottom-1 borderRadiusLeft-1 borderRadiusRight-1 borderRadiusbottomLeft-1 borderRadiusbottomRight-1' //边框圆角
+  ///     classNames: 'mt-10 mb-10 h-160-px bg-black' // 间距、高度、背景色
   ///     classNames: 'shadowColor-black shadowBlurRadius-4 shadow-offset-1,1' // 阴影
   ///     classNames: 'display-none display-block' // 隐藏，显示
   ///     classNames: 'opacity-0.5' // 透明度
-  ///     classNames: 'g-0.5 gt-1 gx-3' // 间距 [gutterX] [gutterY] 优先
+  ///     classNames: 'flex-grow-12 gap-3' // Flex增强
+  ///     classNames: 'rounded-lg' // 圆角预设
+  ///     classNames: 'g-0.5 gx-3 gy-1' // 间距 (gutterX/gutterY 参数优先)
   ///     height: 160,
   ///     decoration: BoxDecoration(),
   ///     childRef: ,

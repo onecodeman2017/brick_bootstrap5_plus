@@ -12,20 +12,33 @@ enum Block {
 
 class Div extends StatefulWidget {
   ///
+  /// **支持的 classNames**:
+  /// - 栅格: `col-{1-24}`, `offset-{0-*}`, `order-{0-*}`
+  /// - 间距: `p-{1-5}`, `m-{1-5}`, `g-{1-5}`, `p{t,b,s,e,x,y}-*`, `m{t,b,s,e,x,y}-*`
+  /// - 对齐: `align-items-*`, `align-self-*`, `justify-content-*`, `align-*`
+  /// - 尺寸: `w-{0-*}`, `h-{0-*}`, `maxWidth-{0-*}`, `minWidth-{0-*}`, `maxHeight-{0-*}`, `minHeight-{0-*}`
+  /// - 颜色: `bg-*`, `color-*`, `borderColor-*`, `hoverColor-*`, `activeColor-*`
+  /// - 边框: `border-*`, `borderRadius-*`, `borderTop-*`, `borderBottom-*`, `borderLeft-*`, `borderRight-*`
+  /// - 阴影: `shadowColor-*`, `shadowBlurRadius-*`, `shadow-offset-*`
+  /// - 显示: `d-none`, `d-block`
+  /// - 透明度: `opacity-*`
+  /// - 圆角: `rounded-{sm,md,lg,xl,full,circle,number}`
+  /// - 文本: `text-truncate`, `text-break`, `line-height-*`, `letter-spacing-*`
+  /// - 响应式: `hidden`, `hidden-{xs,sm,md,lg,xl,xxl}`, `visible`, `visible-{xs,sm,md,lg,xl,xxl}`, `block`, `block-{xs,sm,md,lg,xl,xxl}`
   ///
+  /// **注意**: 支持几乎所有 className，但不推荐使用 Div，建议使用 H5Row 或 BCol/BRow
   ///
   /// ```dart
   ///   Div(
-  ///     classNames: 'align-self-bottomCenter align-self-bottomLeft align-self-bottomRight align-self-center align-self-centerLeft align-self-centerRight align-self-topCenter align-self-topLeft align-self-topRight ' // 横向对齐
-  ///     classNames: 'align-bottomCenter align-bottomLeft align-bottomRight align-center align-centerLeft align-centerRight align-topCenter align-topLeft align-topRight ' // 横向对齐
-  ///     classNames: 'w-150-px h-160-px maxHeight-150-px minHeight-150-px minWidth-150-px maxWidth-150-px' //
-  ///     classNames: 'mt-10 mb-10 bg-black ' // 只支持 bg-  背景色
-  ///     classNames: 'shadowColor-black12 shadowBlurRadius-2 shadow-offset-1,1' // 阴影
-  ///     classNames: 'borderRadius-4  borderColor-red border-1' // 边框
-  ///     classNames: 'hoverColor-green hoverBorderColor-blue hoverBorder-2 ' //
-  ///     classNames: 'display-none display-block' // 隐藏，显示
-  ///     classNames: 'opacity-0.5' // 透明度
-  ///     children:[],
+  ///     classNames: 'w-150-px h-160-px maxHeight-150-px minHeight-150-px minWidth-150-px maxWidth-150-px',
+  ///     classNames: 'mt-10 mb-10 bg-black color-white',
+  ///     classNames: 'shadowColor-black shadowBlurRadius-2 shadow-offset-1,1',
+  ///     classNames: 'borderRadius-4 borderColor-red border-1',
+  ///     classNames: 'hoverColor-green hoverBorderColor-blue hoverBorder-2',
+  ///     classNames: 'display-none display-block',
+  ///     classNames: 'opacity-0.5',
+  ///     classNames: 'rounded-lg flex-grow-12 gap-3',
+  ///     child: Text('content'),
   ///   )
   /// ```
   @Deprecated('不建议使用')
@@ -69,10 +82,16 @@ class Div extends StatefulWidget {
 
 class _DivState extends State<Div> {
   bool _isHover = false;
+  
+  // 预编译正则表达式，避免重复编译
+  static final RegExp _hoverRegex = RegExp('hover');
+  static final RegExp _widthRegex = RegExp('w-');
+  static final RegExp _heightRegex = RegExp('h-');
+  
   Widget getWidget(StyleAbbrSet s, BoxConstraints _constraints) {
-    final hasHover = RegExp('hover').hasMatch(widget.classNames);
-    final hasWidth = RegExp('w-').hasMatch(widget.classNames);
-    final hasHeight = RegExp('h-').hasMatch(widget.classNames);
+    final hasHover = _hoverRegex.hasMatch(widget.classNames);
+    final hasWidth = _widthRegex.hasMatch(widget.classNames);
+    final hasHeight = _heightRegex.hasMatch(widget.classNames);
     Widget _child = SizedBox.shrink();
     final BoxConstraints constraints = BoxConstraints(
       maxHeight: (s.maxHeight != null && s.maxHeight! > 0) ? s.maxHeight! : _constraints.maxHeight,

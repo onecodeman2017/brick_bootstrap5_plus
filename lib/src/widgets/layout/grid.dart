@@ -10,7 +10,7 @@ class Grid extends StatelessWidget {
     required this.children,
   }) : super(key: key);
 
-  @Deprecated('不建议使用, 建议使用 Flutter GridView')
+  @Deprecated('\u4e0d\u5efa\u8bae\u4f7f\u7528, \u5efa\u8bae\u4f7f\u7528 Flutter GridView')
   factory Grid({
     String? classNames,
     bool sortChildren = false,
@@ -23,6 +23,8 @@ class Grid extends StatelessWidget {
       children: children,
     );
   }
+  
+  @Deprecated('\u4e0d\u5efa\u8bae\u4f7f\u7528, \u5efa\u8bae\u4f7f\u7528 Flutter GridView')
 
   factory Grid.stacked({
     String? classNames,

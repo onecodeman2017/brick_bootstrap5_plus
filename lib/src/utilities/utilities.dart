@@ -11,3 +11,4 @@ part 'colors.dart';
 part 'helper.dart';
 part 'spacing.dart';
 part 'alignment.dart';
+part 'new_features.dart';

@@ -53,6 +53,14 @@ class Style {
   final _Height? maxHeight;
   final _Height? minHeight;
   final _Width? opacity;
+  final _FlexGrow? flexGrow;
+  final _FlexShrink? flexShrink;
+  final _Gap? gap;
+  final _RoundedPresets? roundedPresets;
+  final _LineHeight? lineHeight;
+  final _LetterSpacing? letterSpacing;
+  final _TextTruncate? textTruncate;
+  final _ResponsiveDisplay? responsiveDisplay;
   Style({
     this.margin,
     this.padding,
@@ -103,6 +111,14 @@ class Style {
     this.borderBottom,
     this.borderLeft,
     this.borderRight,
+    this.flexGrow,
+    this.flexShrink,
+    this.gap,
+    this.roundedPresets,
+    this.lineHeight,
+    this.letterSpacing,
+    this.textTruncate,
+    this.responsiveDisplay,
   });
 
   Style copyWith({
@@ -155,6 +171,14 @@ class Style {
     _Width? borderBottom,
     _Width? borderLeft,
     _Width? borderRight,
+    _FlexGrow? flexGrow,
+    _FlexShrink? flexShrink,
+    _Gap? gap,
+    _RoundedPresets? roundedPresets,
+    _LineHeight? lineHeight,
+    _LetterSpacing? letterSpacing,
+    _TextTruncate? textTruncate,
+    _ResponsiveDisplay? responsiveDisplay,
   }) =>
       Style(
         margin: margin ?? this.margin,
@@ -208,6 +232,14 @@ class Style {
         borderBottom: borderBottom ?? this.borderBottom,
         borderLeft: borderLeft ?? this.borderLeft,
         borderRight: borderRight ?? this.borderRight,
+        flexGrow: flexGrow ?? this.flexGrow,
+        flexShrink: flexShrink ?? this.flexShrink,
+        gap: gap ?? this.gap,
+        roundedPresets: roundedPresets ?? this.roundedPresets,
+        lineHeight: lineHeight ?? this.lineHeight,
+        letterSpacing: letterSpacing ?? this.letterSpacing,
+        textTruncate: textTruncate ?? this.textTruncate,
+        responsiveDisplay: responsiveDisplay ?? this.responsiveDisplay,
       );
 }
 
@@ -317,6 +349,11 @@ Style? convertClassNamesToStyle(String? classNames) {
           var blur = style.blur ?? _Blur();
           var newBlur = blur._copyWithClass(className);
           style = style.copyWith(blur: newBlur);
+        } else if (className.startsWith('block')) {
+          var responsiveDisplay =
+              style.responsiveDisplay ?? _ResponsiveDisplay();
+          var newDisplay = responsiveDisplay._copyWithClass(className);
+          style = style.copyWith(responsiveDisplay: newDisplay);
         }
         break;
 
@@ -355,6 +392,15 @@ Style? convertClassNamesToStyle(String? classNames) {
           var newFit = fit._copyWithClass(className);
           style = style.copyWith(fit: newFit);
         }
+        if (className.contains('flex-grow-')) {
+          var flexGrow = style.flexGrow ?? _FlexGrow();
+          var newFlexGrow = flexGrow._copyWithClass(className);
+          style = style.copyWith(flexGrow: newFlexGrow);
+        } else if (className.contains('flex-shrink-')) {
+          var flexShrink = style.flexShrink ?? _FlexShrink();
+          var newFlexShrink = flexShrink._copyWithClass(className);
+          style = style.copyWith(flexShrink: newFlexShrink);
+        }
         break;
 
       case 'g':
@@ -376,6 +422,12 @@ Style? convertClassNamesToStyle(String? classNames) {
           var hoverBorder = style.hoverBorder ?? _Border();
           var newHoverBorder = hoverBorder._copyWithClass(className);
           style = style.copyWith(hoverBorder: newHoverBorder);
+        } else if (className.startsWith('hidden') ||
+            className.startsWith('hidden-')) {
+          var responsiveDisplay =
+              style.responsiveDisplay ?? _ResponsiveDisplay();
+          var newDisplay = responsiveDisplay._copyWithClass(className);
+          style = style.copyWith(responsiveDisplay: newDisplay);
         } else {
           var height = style.height ?? _Height();
           final newHeight = height._copyWithClass(className);
@@ -451,6 +503,10 @@ Style? convertClassNamesToStyle(String? classNames) {
           var rowCols = style.rowCols ?? _RowCols();
           final newRowCols = rowCols._copyWithClass(className);
           style = style.copyWith(rowCols: newRowCols);
+        } else if (className.startsWith('rounded')) {
+          var roundedPresets = style.roundedPresets ?? _RoundedPresets();
+          var newRounded = roundedPresets._copyWithClass(className);
+          style = style.copyWith(roundedPresets: newRounded);
         }
         break;
 
@@ -486,6 +542,36 @@ Style? convertClassNamesToStyle(String? classNames) {
         var width = style.width ?? _Width();
         final newWidth = width._copyWithClass(className);
         style = style.copyWith(width: newWidth);
+        break;
+
+      case 't':
+        if (className.startsWith('text-truncate') ||
+            className.startsWith('text-break')) {
+          var textTruncate = style.textTruncate ?? _TextTruncate();
+          var newTruncate = textTruncate._copyWithClass(className);
+          style = style.copyWith(textTruncate: newTruncate);
+        }
+        break;
+
+      case 'l':
+        if (className.startsWith('line-height-')) {
+          var lineHeight = style.lineHeight ?? _LineHeight();
+          var newLineHeight = lineHeight._copyWithClass(className);
+          style = style.copyWith(lineHeight: newLineHeight);
+        } else if (className.startsWith('letter-spacing-')) {
+          var letterSpacing = style.letterSpacing ?? _LetterSpacing();
+          var newLetterSpacing = letterSpacing._copyWithClass(className);
+          style = style.copyWith(letterSpacing: newLetterSpacing);
+        }
+        break;
+
+      case 'v':
+        if (className.startsWith('visible')) {
+          var responsiveDisplay =
+              style.responsiveDisplay ?? _ResponsiveDisplay();
+          var newDisplay = responsiveDisplay._copyWithClass(className);
+          style = style.copyWith(responsiveDisplay: newDisplay);
+        }
         break;
     }
   }

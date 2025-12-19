@@ -19,11 +19,24 @@ class BRow extends StatelessWidget {
   ///
   ///     - [_HorizontalAlignment > _SelfAlignment > _Alignment] (s.ha > s.sa > s.a)
   ///
-  /// classNames g- 不支持 (不要使用)
+  /// **支持的 classNames**:
+  /// - 间距: `p-{1-5}`, `m-{1-5}`, `offset-{0-*}` (offset 为斌距,不是 col-* 的偏移)
+  /// - 对齐: `align-items-*`, `align-self-*`, `justify-content-*`, `align-*`
+  /// - 颜色: `bg-*`, `borderColor-*`
+  /// - 边框: `border-*`, `borderRadius-*`
+  /// - 阴影: `shadowColor-*`, `shadowBlurRadius-*`, `shadow-offset-*`
+  /// - 显示: `d-none`, `d-block`
+  /// - 透明度: `opacity-*`
+  /// - 圈角: `rounded-*`
+  /// - 文本: `text-truncate`, `text-break`, `line-height-*`, `letter-spacing-*`
+  /// - 响应式: `hidden`, `hidden-{xs,sm,md,lg,xl,xxl}`, `visible`, `visible-{xs,sm,md,lg,xl,xxl}`, `block`, `block-{xs,sm,md,lg,xl,xxl}`
   ///
-  /// classNames offset-1 按栅格设置间隔 1 是 1个栅格宽度 (会与BCol的offset-1叠加)
+  /// **注意**:
+  /// - `g-` 不支持 (不要使用，使用 gutterX/gutterY 参数代替)
+  /// - `col-` 不支持 (应该作用于 BCol)
+  /// - `w-`, `h-`, `maxWidth-`, `minWidth-`, `maxHeight-`, `minHeight-`, `font-size-`, `font-weight-`, `blur-`, `scale-`, `fit-`, `stackFit-` 不支持
   ///
-  ///  ```dart
+  /// ```dart
   ///   BRow(
   ///     classNames: 'offset-1 p-10 m-10',
   ///     classNames: 'align-items-start align-items-center align-items-end ' // 纵向对齐
@@ -32,9 +45,11 @@ class BRow extends StatelessWidget {
   ///     classNames: 'align-bottomCenter align-bottomLeft align-bottomRight align-center align-centerLeft align-centerRight align-topCenter align-topLeft align-topRight ' // 横向对齐
   ///     classNames: 'display-none display-block' // 隐藏，显示
   ///     classNames: 'opacity-0.5' // 透明度
+  ///     classNames: 'bg-blue rounded-lg' // 背景色、圈角
+  ///     classNames: 'gx-3 gy-2' // 间距 (gutterX/gutterY 参数优先)
   ///     children:[
   ///        BCol(
-  ///         classNames: ''
+  ///         classNames: 'col-12 col-md-6'
   ///         children:[],
   ///        )
   ///     ]
